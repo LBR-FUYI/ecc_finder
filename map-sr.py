@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt
 import pybedtools
 from pybedtools import BedTool
 
-from eccFinder_lib.utilities import log,run_oae,get_eccFinder_version
+from eccFinder_lib.utilities import log, run_oae, get_eccFinder_version
 from eccFinder_lib.Aligner import Minimap2SAMAligner
 from eccFinder_lib.Aligner import Minimap2Aligner
 from eccFinder_lib.Aligner import bwaAligner
@@ -44,18 +44,18 @@ from eccFinder_lib.Spliter import tidehunter
 from eccFinder_lib.Peaker import genrich
 
 
-def run_fastp(file_prefix,align_path, query1_file,query2_file,num_threads, overwrite_files):
+def run_fastp(file_prefix, align_path, query1_file, query2_file, num_threads, overwrite_files):
     """ remove adapter. """
-    if os.path.isfile(align_path +file_prefix+".html"):
+    if os.path.isfile(align_path + file_prefix + ".html"):
         if not overwrite_files:
-            log("INFO", "Retaining pre-existing file: " + align_path +file_prefix+".html")
+            log("INFO", "Retaining pre-existing file: " + align_path + file_prefix + ".html")
         else:
-            log("INFO", "Overwriting pre-existing file: " + align_path +file_prefix+".html")
-            query1_file_out=align_path +file_prefix+".R1.fastq.gz"
-            query2_file_out=align_path +file_prefix+".R2.fastq.gz"
-            html_file_out=align_path +file_prefix+".html"
-            fastp_cmd = "fastp --thread "+ str(num_threads) +" -i " + query1_file+ " -I "+ query2_file +" -o " + query1_file_out+ " -O "+ query2_file_out+" -h "+ html_file_out
-            subprocess.call(fastp_cmd, shell=True) 
+            log("INFO", "Overwriting pre-existing file: " + align_path + file_prefix + ".html")
+            query1_file_out = align_path + file_prefix + ".R1.fastq.gz"
+            query2_file_out = align_path + file_prefix + ".R2.fastq.gz"
+            html_file_out = align_path + file_prefix + ".html"
+            fastp_cmd = "fastp --thread "+ str(num_threads) + " -i " + query1_file + " -I " + query2_file + " -o " + query1_file_out + " -O " + query2_file_out + " -h " + html_file_out
+            subprocess.call(fastp_cmd, shell = True) 
     else:
         query1_file_out=align_path +file_prefix+".R1.fastq.gz"
         query2_file_out=align_path +file_prefix+".R2.fastq.gz"
